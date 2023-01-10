@@ -115,9 +115,45 @@ namespace FuseeApp
         }
     }
 
-    public class CylinderMesh : ConeFrustumMesh
+    public class CylinderMesh : Mesh
     {
-        public CylinderMesh(float radius, float height, int segments) : base(radius, radius, height, segments) { }
+        public CylinderMesh(float radius, float height, int segments) {
+            
+            float3[] verts = new float3[segments+1];
+            float3[] norms = new float3[segments+1];
+            uint[] tris = new uint[segments*3];
+
+            verts[0] = new float3(radius, 0, 0);
+            norms[0] = new float3(0, 1, 0);
+
+            verts[segments] = new float3(0, 0, 0);
+            norms[segments] = new float3(0, 1, 0);
+
+            float delta = 2 * M.Pi / segments;
+
+            for (int i = 1; i < segments; i++)
+            {
+                var x = radius * Math.Cos(i*delta);
+                var y = radius * Math.Sin(i*delta);
+
+                verts[i] = new float3((float) x, 0,(float) y);
+
+                norms[i] = new float3(0, 1, 0);
+
+                tris[(i-1)*3 + 0] = (uint) i-1;
+                tris[(i-1)*3 + 1] = (uint) i;
+                tris[(i-1)*3 + 2] = (uint) segments;
+            }
+
+            tris[tris.Length-3] = (uint) segments-1;
+            tris[tris.Length-2] = 0;
+            tris[tris.Length-1] = (uint) segments;
+            
+            Vertices = new MeshAttributes<float3>(verts);
+            Normals = new MeshAttributes<float3>(norms);
+            Triangles = new MeshAttributes<uint>(tris);
+
+        }
     }
 
     public class ConeMesh : ConeFrustumMesh

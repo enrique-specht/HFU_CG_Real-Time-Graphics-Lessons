@@ -66,7 +66,7 @@ namespace FuseeApp
                             MakeEffect.FromDiffuseSpecular((float4) ColorUint.LightGrey),
 
                             // MESH COMPONENT
-                            new CuboidMesh(new float3(10, 10, 10))
+                            new CylinderMesh(5, 10, 8)
                         }
                     },
                 }
@@ -85,7 +85,7 @@ namespace FuseeApp
         // RenderAFrame is called once a frame
         public override void RenderAFrame()
         {
-            _baseTransform.Rotation = new float3(0, M.MinAngle(TimeSinceStart), 0);
+            //_baseTransform.Rotation = new float3(0, M.MinAngle(TimeSinceStart), 0);
 
             // Clear the backbuffer
             RC.Clear(ClearFlags.Color | ClearFlags.Depth);
