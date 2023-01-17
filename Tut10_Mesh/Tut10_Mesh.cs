@@ -67,6 +67,7 @@ namespace FuseeApp
 
                             // MESH COMPONENT
                             new CylinderMesh(5, 10, 8)
+                            //new PyramidMesh(10, 10)
                         }
                     },
                 }
@@ -85,7 +86,7 @@ namespace FuseeApp
         // RenderAFrame is called once a frame
         public override void RenderAFrame()
         {
-            //_baseTransform.Rotation = new float3(0, M.MinAngle(TimeSinceStart), 0);
+            _baseTransform.Rotation = new float3(0, M.MinAngle(TimeSinceStart), 0);
 
             // Clear the backbuffer
             RC.Clear(ClearFlags.Color | ClearFlags.Depth);
